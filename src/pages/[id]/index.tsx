@@ -5,6 +5,8 @@ import YouTube, { YouTubeProps } from "react-youtube";
 const IndividualPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
+  const start = Number(router.query.start);
+  const end = Number(router.query.end);
 
   // const onPlayerReady:YouTubeProps["onReady"]=()=>{
 
@@ -14,8 +16,8 @@ const IndividualPage = () => {
     height: "360",
     width: "640",
     playerVars: {
-      start: 100,
-      end: 105,
+      start: start,
+      end: end,
     },
   };
 
