@@ -5,10 +5,10 @@ import { Card } from "../components/Card";
 
 const Home: NextPage = () => {
   const data = [
-    { title: "タイトル1", id: "111", start: 100, end: 102 },
-    { title: "タイトル2", id: "222", start: 100, end: 102 },
-    { title: "タイトル3", id: "333", start: 100, end: 102 },
-    { title: "タイトル4", id: "444", start: 100, end: 102 },
+    { title: "タイトル1", id: "vEwFIwW3mg0", start: 100, end: 102 },
+    { title: "タイトル2", id: "oXd0e-TQkII", start: 100, end: 102 },
+    { title: "タイトル3", id: "O3mS6ft7ylE", start: 100, end: 102 },
+    { title: "タイトル4", id: "PB-Ac9IcGcI", start: 100, end: 102 },
   ];
 
   return (
