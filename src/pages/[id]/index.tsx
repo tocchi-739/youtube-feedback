@@ -11,7 +11,6 @@ const IndividualPage = () => {
     typeof serializedComments === "string"
       ? JSON.parse(serializedComments)
       : [];
-  console.log(comments);
 
   // const start = Number(router.query.start);
   // const end = Number(router.query.end);
@@ -50,11 +49,12 @@ const IndividualPage = () => {
           onStateChange={onStateChange}
           ref={playerRef}
         />
-        <ul className="flex flex-col w-full gap-4 ">
+        <ul className="flex flex-col  w-[640px] gap-4 mt-4 overflow-y-scroll h-[40vh]">
           {comments.map((data: any, index: number) => (
             <li
               key={index}
-              className="w-full bg-slate-300"
+              className="bg-slate-300 mx-auto w-full
+              "
               onClick={() => handleClick(data.start, data.end)}
             >
               <p>{data.title}</p>
@@ -63,7 +63,6 @@ const IndividualPage = () => {
             </li>
           ))}
         </ul>
-        <h2>text</h2>
       </main>
     </>
   );
