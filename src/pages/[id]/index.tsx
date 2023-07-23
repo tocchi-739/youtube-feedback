@@ -1,14 +1,28 @@
 import { useRouter } from "next/router";
 import styles from "../../../styles/Home.module.css";
 import YouTube from "react-youtube";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const IndividualPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const start = Number(router.query.start);
-  const end = Number(router.query.end);
+  const { comments: serializedComments } = router.query;
+  const comments =
+    typeof serializedComments === "string"
+      ? JSON.parse(serializedComments)
+      : [];
+  console.log(comments);
+
+  // const start = Number(router.query.start);
+  // const end = Number(router.query.end);
   const playerRef = useRef<any>(null);
+
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(1);
+  const handleClick = (start: number, end: number) => {
+    setStart(start);
+    setEnd(end);
+  };
 
   // プレーヤーの状態が変わったときに呼ばれるコールバック関数
   const onStateChange = (event: any) => {
@@ -36,10 +50,20 @@ const IndividualPage = () => {
           onStateChange={onStateChange}
           ref={playerRef}
         />
-        <h2>{router.query.title}</h2>
-        <p>{router.query.id}</p>
-        <p>{router.query.start}</p>
-        <p>{router.query.end}</p>
+        <ul className="flex flex-col w-full gap-4 ">
+          {comments.map((data: any, index: number) => (
+            <li
+              key={index}
+              className="w-full bg-slate-300"
+              onClick={() => handleClick(data.start, data.end)}
+            >
+              <p>{data.title}</p>
+              <p>コメント</p>
+              <p>{data.comment}</p>
+            </li>
+          ))}
+        </ul>
+        <h2>text</h2>
       </main>
     </>
   );

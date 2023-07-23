@@ -5,10 +5,78 @@ import { Card } from "../components/Card";
 
 const Home: NextPage = () => {
   const data = [
-    { title: "タイトル1", id: "vEwFIwW3mg0", start: 100, end: 102 },
-    { title: "タイトル2", id: "oXd0e-TQkII", start: 2, end: 5 },
-    { title: "タイトル3", id: "O3mS6ft7ylE", start: 20, end: 32 },
-    { title: "タイトル4", id: "PB-Ac9IcGcI", start: 200, end: 203 },
+    {
+      title: "タイトル1",
+      id: "vEwFIwW3mg0",
+      comments: [
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 10,
+          end: 12,
+          comment: "こうした方がいいと思う",
+        },
+      ],
+    },
+    {
+      title: "タイトル2",
+      id: "oXd0e-TQkII",
+      comments: [
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+      ],
+    },
+    {
+      title: "タイトル3",
+      id: "O3mS6ft7ylE",
+      comments: [
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+      ],
+    },
+    {
+      title: "タイトル4",
+      id: "PB-Ac9IcGcI",
+      comments: [
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 100,
+          end: 102,
+          comment: "こうした方がいいと思う",
+        },
+      ],
+    },
   ];
 
   return (
@@ -26,8 +94,7 @@ const Home: NextPage = () => {
               <Card
                 title={data.title}
                 id={data.id}
-                start={data.start}
-                end={data.end}
+                comments={data.comments}
                 key={data.id}
               />
             );
