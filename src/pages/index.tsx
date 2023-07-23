@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <ul>
+        <ul className="grid grid-cols-3 gap-4">
           {data.map((data) => {
             return (
               <Card

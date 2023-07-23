@@ -12,7 +12,7 @@ export const Card = (props: props) => {
   const { title, id, start, end } = props;
 
   return (
-    <li className="border">
+    <li className="shadow p-4 w-72 rounded-sm bg-gray-100 hover:-translate-y-2 duration-300">
       <Link
         href={{
           pathname: `/${id}`,
