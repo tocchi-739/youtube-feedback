@@ -28,6 +28,7 @@ const Home: NextPage = () => {
                 id={data.id}
                 start={data.start}
                 end={data.end}
+                key={data.id}
               />
             );
           })}
