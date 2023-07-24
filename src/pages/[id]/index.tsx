@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styles from "../../../styles/Home.module.css";
 import YouTube from "react-youtube";
 import { useRef, useState } from "react";
+import { Header } from "../../components/Header";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -34,6 +35,7 @@ const IndividualPage = () => {
 
   return (
     <>
+      <Header />
       <main className={styles.main}>
         <YouTube
           videoId={id}
@@ -53,7 +55,7 @@ const IndividualPage = () => {
           {comments.map((data: any, index: number) => (
             <li
               key={index}
-              className="bg-slate-300 mx-auto w-full
+              className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
               "
               onClick={() => handleClick(data.start, data.end)}
             >
