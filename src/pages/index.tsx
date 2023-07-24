@@ -125,7 +125,7 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <ul className="grid grid-cols-3 gap-4">
+        <ul className="grid lg:grid-cols-3 gap-4 w-10/12">
           {data.map((data) => {
             return (
               <Card
