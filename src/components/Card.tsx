@@ -17,7 +17,7 @@ export const Card = (props: props) => {
   const serializedComments = JSON.stringify(comments); // commentsをJSON文字列に変換
 
   return (
-    <li className="shadow p-4 w-72 rounded-sm bg-gray-100 hover:-translate-y-2 duration-300">
+    <li className="shadow p-4  rounded-sm bg-gray-100 hover:-translate-y-2 duration-300">
       <Link
         href={{
           pathname: `/${id}`,
