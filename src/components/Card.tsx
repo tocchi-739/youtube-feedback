@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 interface props {
   title: string;
@@ -29,7 +28,6 @@ export const Card = (props: props) => {
           },
         }}
       >
-        <div id="player"></div>
         <h2>{title}</h2>
         <p>{id}</p>
       </Link>

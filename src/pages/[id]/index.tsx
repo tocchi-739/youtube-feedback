@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import styles from "../../../styles/Home.module.css";
 import YouTube from "react-youtube";
 import { useRef, useState } from "react";
+import { Header } from "../../components/Header";
+import Head from "next/head";
+import { Toaster, toast } from "react-hot-toast";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -12,15 +15,14 @@ const IndividualPage = () => {
       ? JSON.parse(serializedComments)
       : [];
 
-  // const start = Number(router.query.start);
-  // const end = Number(router.query.end);
   const playerRef = useRef<any>(null);
 
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(1);
+  const [start, setStart] = useState<number>();
+  const [end, setEnd] = useState<number>();
   const handleClick = (start: number, end: number) => {
     setStart(start);
     setEnd(end);
+    toast.success("開始〜終了時間を変更しました：" + start + "〜" + end);
   };
 
   // プレーヤーの状態が変わったときに呼ばれるコールバック関数
@@ -34,6 +36,11 @@ const IndividualPage = () => {
 
   return (
     <>
+      <Head>
+        <title>詳細ページ</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Header />
       <main className={styles.main}>
         <YouTube
           videoId={id}
@@ -53,10 +60,13 @@ const IndividualPage = () => {
           {comments.map((data: any, index: number) => (
             <li
               key={index}
-              className="bg-slate-300 mx-auto w-full
+              className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
               "
               onClick={() => handleClick(data.start, data.end)}
             >
+              <p>
+                開始：{data.start} 終了：{data.end}
+              </p>
               <p>{data.title}</p>
               <p>コメント</p>
               <p>{data.comment}</p>
@@ -64,6 +74,7 @@ const IndividualPage = () => {
           ))}
         </ul>
       </main>
+      <Toaster />
     </>
   );
 };
