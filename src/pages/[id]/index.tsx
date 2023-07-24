@@ -4,6 +4,7 @@ import YouTube from "react-youtube";
 import { useRef, useState } from "react";
 import { Header } from "../../components/Header";
 import Head from "next/head";
+import { Toaster, toast } from "react-hot-toast";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -14,15 +15,14 @@ const IndividualPage = () => {
       ? JSON.parse(serializedComments)
       : [];
 
-  // const start = Number(router.query.start);
-  // const end = Number(router.query.end);
   const playerRef = useRef<any>(null);
 
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(1);
+  const [start, setStart] = useState<number>();
+  const [end, setEnd] = useState<number>();
   const handleClick = (start: number, end: number) => {
     setStart(start);
     setEnd(end);
+    toast.success("開始〜終了時間を変更しました：" + start + "〜" + end);
   };
 
   // プレーヤーの状態が変わったときに呼ばれるコールバック関数
@@ -74,6 +74,7 @@ const IndividualPage = () => {
           ))}
         </ul>
       </main>
+      <Toaster />
     </>
   );
 };
