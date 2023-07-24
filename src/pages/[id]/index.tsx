@@ -3,6 +3,7 @@ import styles from "../../../styles/Home.module.css";
 import YouTube from "react-youtube";
 import { useRef, useState } from "react";
 import { Header } from "../../components/Header";
+import Head from "next/head";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -35,6 +36,10 @@ const IndividualPage = () => {
 
   return (
     <>
+      <Head>
+        <title>詳細ページ</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header />
       <main className={styles.main}>
         <YouTube
@@ -59,6 +64,9 @@ const IndividualPage = () => {
               "
               onClick={() => handleClick(data.start, data.end)}
             >
+              <p>
+                開始：{data.start} 終了：{data.end}
+              </p>
               <p>{data.title}</p>
               <p>コメント</p>
               <p>{data.comment}</p>

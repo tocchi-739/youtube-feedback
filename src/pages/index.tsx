@@ -12,26 +12,8 @@ const Home: NextPage = () => {
       comments: [
         {
           title: "ここ",
-          start: 100,
-          end: 102,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
           start: 10,
-          end: 12,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 100,
-          end: 102,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 10,
-          end: 12,
+          end: 15,
           comment: "こうした方がいいと思う",
         },
         {
@@ -42,20 +24,38 @@ const Home: NextPage = () => {
         },
         {
           title: "ここ",
-          start: 10,
-          end: 12,
+          start: 205,
+          end: 210,
           comment: "こうした方がいいと思う",
         },
         {
           title: "ここ",
-          start: 100,
-          end: 102,
+          start: 210,
+          end: 215,
           comment: "こうした方がいいと思う",
         },
         {
           title: "ここ",
-          start: 10,
-          end: 12,
+          start: 220,
+          end: 222,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 240,
+          end: 242,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 1000,
+          end: 1004,
+          comment: "こうした方がいいと思う",
+        },
+        {
+          title: "ここ",
+          start: 2000,
+          end: 2003,
           comment: "こうした方がいいと思う",
         },
       ],
@@ -66,8 +66,8 @@ const Home: NextPage = () => {
       comments: [
         {
           title: "ここ",
-          start: 100,
-          end: 102,
+          start: 10,
+          end: 15,
           comment: "こうした方がいいと思う",
         },
         {
@@ -84,8 +84,8 @@ const Home: NextPage = () => {
       comments: [
         {
           title: "ここ",
-          start: 100,
-          end: 102,
+          start: 10,
+          end: 15,
           comment: "こうした方がいいと思う",
         },
         {
@@ -102,8 +102,8 @@ const Home: NextPage = () => {
       comments: [
         {
           title: "ここ",
-          start: 100,
-          end: 102,
+          start: 10,
+          end: 15,
           comment: "こうした方がいいと思う",
         },
         {
