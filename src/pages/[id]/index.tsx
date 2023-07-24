@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styles from "../../../styles/Home.module.css";
 import YouTube from "react-youtube";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../../components/Header";
 import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
@@ -33,6 +33,23 @@ const IndividualPage = () => {
       playerRef.current?.internalPlayer?.playVideo();
     }
   };
+  const [playerWidth, setPlayerWidth] = useState(640); // プレーヤーの初期幅
+  const playerHeight = (playerWidth * 9) / 16;
+
+  // ウィンドウサイズが変更されたときにコンポーネントの幅を調整
+  useEffect(() => {
+    const handleResize = () => {
+      const containerWidth =
+        document.getElementById("youtube-container")?.clientWidth;
+      if (containerWidth) {
+        setPlayerWidth(containerWidth);
+        console.log(containerWidth);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize(); // 初回表示時に幅を調整
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -42,37 +59,41 @@ const IndividualPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <YouTube
-          videoId={id}
-          opts={{
-            height: "360",
-            width: "640",
-            playerVars: {
-              start: start,
-              end: end,
-              loop: 1,
-            },
-          }}
-          onStateChange={onStateChange}
-          ref={playerRef}
-        />
-        <ul className="flex flex-col  w-[640px] gap-4 mt-4 overflow-y-scroll h-[40vh]">
-          {comments.map((data: any, index: number) => (
-            <li
-              key={index}
-              className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
+        <div className="w-11/12 md:w-6/12">
+          <YouTube
+            className="aspect-video"
+            videoId={id}
+            opts={{
+              height: "100%",
+              width: "100%",
+              playerVars: {
+                start: start,
+                end: end,
+                loop: 1,
+              },
+            }}
+            onStateChange={onStateChange}
+            ref={playerRef}
+          />
+
+          <ul className="flex flex-col  w-full gap-4 mt-4 overflow-y-scroll h-[40vh]">
+            {comments.map((data: any, index: number) => (
+              <li
+                key={index}
+                className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
               "
-              onClick={() => handleClick(data.start, data.end)}
-            >
-              <p>
-                開始：{data.start} 終了：{data.end}
-              </p>
-              <p>{data.title}</p>
-              <p>コメント</p>
-              <p>{data.comment}</p>
-            </li>
-          ))}
-        </ul>
+                onClick={() => handleClick(data.start, data.end)}
+              >
+                <p>
+                  開始：{data.start} 終了：{data.end}
+                </p>
+                <p>{data.title}</p>
+                <p>コメント</p>
+                <p>{data.comment}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </main>
       <Toaster />
     </>
