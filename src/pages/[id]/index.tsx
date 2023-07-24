@@ -59,24 +59,26 @@ const IndividualPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <div className="w-11/12 md:w-6/12">
-          <YouTube
-            className="aspect-video"
-            videoId={id}
-            opts={{
-              height: "100%",
-              width: "100%",
-              playerVars: {
-                start: start,
-                end: end,
-                loop: 1,
-              },
-            }}
-            onStateChange={onStateChange}
-            ref={playerRef}
-          />
+        <div className="w-11/12 md:w-6/12 lg:w-11/12 lg:flex">
+          <div className="lg:w-[70%]">
+            <YouTube
+              className="aspect-video"
+              videoId={id}
+              opts={{
+                height: "100%",
+                width: "100%",
+                playerVars: {
+                  start: start,
+                  end: end,
+                  loop: 1,
+                },
+              }}
+              onStateChange={onStateChange}
+              ref={playerRef}
+            />
+          </div>
 
-          <ul className="flex flex-col  w-full gap-4 mt-4 overflow-y-scroll h-[40vh]">
+          <ul className="flex flex-col w-full gap-4 mt-4 overflow-y-scroll h-[40vh] lg:w-[30%] lg:h-[70vh] lg:mt-0">
             {comments.map((data: any, index: number) => (
               <li
                 key={index}
