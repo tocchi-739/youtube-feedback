@@ -5,18 +5,24 @@ import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { app } from "../firebase/firebase";
+import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 const db = getFirestore(app);
 const Home: NextPage = () => {
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(() => e.target.value);
+  };
   const handleClick = async () => {
     console.log("クリックされました");
 
     try {
       const col = collection(db, "youtube-feedback");
-      await addDoc(col, { ulr: "hoge" });
-      console.log("success!" + "hoge" + "(please reload)");
+      await addDoc(col, { ulr: youtubeUrl });
+      toast.success("success!" + youtubeUrl);
     } catch (error) {
-      console.log("error");
+      toast.error("error");
     }
   };
   const data = [
@@ -139,6 +145,12 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
+        <input
+          type="url"
+          onChange={handleChange}
+          value={youtubeUrl}
+          className="border p-2"
+        />
         <div onClick={handleClick}>ボタン</div>
         <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
           {data.map((data) => {
@@ -154,6 +166,7 @@ const Home: NextPage = () => {
         </ul>
       </main>
       <footer className={styles.footer}></footer>
+      <Toaster />
     </div>
   );
 };
