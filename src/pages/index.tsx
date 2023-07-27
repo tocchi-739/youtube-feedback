@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
     try {
       const col = collection(db, "youtube-feedback");
-      await addDoc(col, { ulr: youtubeUrl });
+      await addDoc(col, { url: youtubeUrl });
       toast.success("success!" + youtubeUrl);
     } catch (error) {
       toast.error("error");
