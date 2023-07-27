@@ -6,6 +6,7 @@ import { Header } from "../components/Header";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { app } from "../firebase/firebase";
 import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 const db = getFirestore(app);
 const Home: NextPage = () => {
@@ -19,9 +20,9 @@ const Home: NextPage = () => {
     try {
       const col = collection(db, "youtube-feedback");
       await addDoc(col, { ulr: youtubeUrl });
-      console.log("success!" + youtubeUrl + "(please reload)");
+      toast.success("success!" + youtubeUrl);
     } catch (error) {
-      console.log("error");
+      toast.error("error");
     }
   };
   const data = [
@@ -165,6 +166,7 @@ const Home: NextPage = () => {
         </ul>
       </main>
       <footer className={styles.footer}></footer>
+      <Toaster />
     </div>
   );
 };
