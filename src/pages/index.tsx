@@ -48,7 +48,9 @@ const Home: NextPage = () => {
           return {
             id: doc.id,
             url: data.url,
-            youtubeId: data.url.replace("https://www.youtube.com/watch?v=", ""),
+            youtubeId: data.url
+              .replace("https://www.youtube.com/watch?v=", "")
+              .replace("https://youtu.be/", ""),
           };
         });
         setYoutubeUrlArray(dataList);
