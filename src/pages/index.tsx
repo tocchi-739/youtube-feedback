@@ -3,9 +3,15 @@ import Head from "next/head";
 import styles from "../../styles/Home.module.css";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+} from "firebase/firestore";
 import { app } from "../firebase/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 
 const db = getFirestore(app);
@@ -25,6 +31,32 @@ const Home: NextPage = () => {
       toast.error("error");
     }
   };
+  interface youtubeUrl {
+    id: string;
+    url: string;
+  }
+  const [youtubeUrlArray, setYoutubeUrlArray] = useState<youtubeUrl[]>([]);
+  useEffect(() => {
+    // Firestoreのデータ監視を設定
+    const unsubscribe = onSnapshot(
+      collection(db, "youtube-feedback"),
+      (snapshot) => {
+        const dataList = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            url: data.url,
+          };
+        });
+        setYoutubeUrlArray(dataList);
+      }
+    );
+
+    // コンポーネントのアンマウント時にデータ監視を停止
+    return () => unsubscribe();
+  }, []);
+  console.log(youtubeUrlArray);
+
   const data = [
     {
       title: "タイトル1",
