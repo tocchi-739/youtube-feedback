@@ -35,6 +35,7 @@ const Home: NextPage = () => {
   interface youtubeUrl {
     id: string;
     url: string;
+    youtubeId: string;
   }
   const [youtubeUrlArray, setYoutubeUrlArray] = useState<youtubeUrl[]>([]);
   useEffect(() => {
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
           return {
             id: doc.id,
             url: data.url,
+            youtubeId: data.url.replace("https://www.youtube.com/watch?v=", ""),
           };
         });
         setYoutubeUrlArray(dataList);
@@ -200,18 +202,21 @@ const Home: NextPage = () => {
         <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
           {youtubeUrlArray.map((data) => {
             return (
-              <li className="shadow p-4 rounded-sm bg-gray-100 hover:-translate-y-2 duration-300">
+              <li
+                className="shadow p-4 rounded-sm bg-gray-100 hover:-translate-y-2 duration-300"
+                key={data.id}
+              >
                 <Link
                   href={{
-                    pathname: `/${data.url}`,
+                    pathname: `/${data.youtubeId}`,
                     query: {
                       url: data.url,
-                      id: data.id,
+                      id: data.youtubeId,
                     },
                   }}
                 >
-                  <p>{data.id}</p>
                   <h2>{data.url}</h2>
+                  <p>{data.youtubeId}</p>
                 </Link>
               </li>
             );
