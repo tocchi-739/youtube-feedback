@@ -13,6 +13,7 @@ import {
 import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import Link from "next/link";
 
 const db = getFirestore(app);
 const Home: NextPage = () => {
@@ -193,6 +194,26 @@ const Home: NextPage = () => {
                 comments={data.comments}
                 key={data.id}
               />
+            );
+          })}
+        </ul>
+        <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
+          {youtubeUrlArray.map((data) => {
+            return (
+              <li className="shadow p-4 rounded-sm bg-gray-100 hover:-translate-y-2 duration-300">
+                <Link
+                  href={{
+                    pathname: `/${data.url}`,
+                    query: {
+                      url: data.url,
+                      id: data.id,
+                    },
+                  }}
+                >
+                  <p>{data.id}</p>
+                  <h2>{data.url}</h2>
+                </Link>
+              </li>
             );
           })}
         </ul>
