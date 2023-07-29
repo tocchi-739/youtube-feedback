@@ -9,11 +9,15 @@ import { Toaster, toast } from "react-hot-toast";
 const IndividualPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { comments: serializedComments } = router.query;
-  const comments =
-    typeof serializedComments === "string"
-      ? JSON.parse(serializedComments)
-      : [];
+  const { detail: serializedDetail } = router.query;
+  const detail =
+    typeof serializedDetail === "string" ? JSON.parse(serializedDetail) : [];
+
+  // const { comments: serializedComments } = router.query;
+  // const comments =
+  //   typeof serializedComments === "string"
+  //     ? JSON.parse(serializedComments)
+  //     : [];
 
   const playerRef = useRef<any>(null);
 
@@ -79,21 +83,31 @@ const IndividualPage = () => {
           </div>
 
           <ul className="flex flex-col w-full gap-4 mt-4 overflow-y-scroll h-[40vh] lg:w-[30%] lg:h-[70vh] lg:mt-0">
-            {comments.map((data: any, index: number) => (
-              <li
-                key={index}
-                className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
+            {detail.map(
+              (
+                data: {
+                  start: number;
+                  end: number;
+                  title: string;
+                  comment: string;
+                },
+                index: number
+              ) => (
+                <li
+                  key={index}
+                  className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
               "
-                onClick={() => handleClick(data.start, data.end)}
-              >
-                <p>
-                  開始：{data.start} 終了：{data.end}
-                </p>
-                <p>{data.title}</p>
-                <p>コメント</p>
-                <p>{data.comment}</p>
-              </li>
-            ))}
+                  onClick={() => handleClick(data.start, data.end)}
+                >
+                  <p>
+                    開始：{data.start} 終了：{data.end}
+                  </p>
+                  <p>{data.title}</p>
+                  <p>コメント</p>
+                  <p>{data.comment}</p>
+                </li>
+              )
+            )}
           </ul>
         </div>
       </main>
