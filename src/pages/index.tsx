@@ -6,6 +6,8 @@ import { Header } from "../components/Header";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   getFirestore,
   onSnapshot,
@@ -31,6 +33,20 @@ const Home: NextPage = () => {
       setYoutubeUrl("");
     } catch (error) {
       toast.error("error");
+    }
+  };
+
+  const handleDelete = async (e: string) => {
+    const confirm: boolean = window.confirm("本当に削除しますか？");
+    if (confirm) {
+      try {
+        await deleteDoc(doc(db, "youtube-feedback", e));
+        toast.success("削除しました");
+      } catch (error) {
+        toast.error("error");
+      }
+    } else {
+      toast("削除を中止しました");
     }
   };
   interface youtubeUrl {
@@ -229,6 +245,12 @@ const Home: NextPage = () => {
                   <h2>{data.url}</h2>
                   <p>{data.youtubeId}</p>
                 </Link>
+                <button
+                  className="p-1 border bg-red-400"
+                  onClick={() => handleDelete(data.id)}
+                >
+                  削除
+                </button>
               </li>
             );
           })}
