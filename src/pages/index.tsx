@@ -28,6 +28,7 @@ const Home: NextPage = () => {
       const col = collection(db, "youtube-feedback");
       await addDoc(col, { url: youtubeUrl });
       toast.success("success!" + youtubeUrl);
+      setYoutubeUrl("");
     } catch (error) {
       toast.error("error");
     }
@@ -36,6 +37,12 @@ const Home: NextPage = () => {
     id: string;
     url: string;
     youtubeId: string;
+    detail: {
+      title: string;
+      start: number;
+      end: number;
+      comment: string;
+    }[];
   }
   const [youtubeUrlArray, setYoutubeUrlArray] = useState<youtubeUrl[]>([]);
   useEffect(() => {
@@ -51,6 +58,7 @@ const Home: NextPage = () => {
             youtubeId: data.url
               .replace("https://www.youtube.com/watch?v=", "")
               .replace("https://youtu.be/", ""),
+            detail: data.detail,
           };
         });
         setYoutubeUrlArray(dataList);
@@ -62,116 +70,116 @@ const Home: NextPage = () => {
   }, []);
   console.log(youtubeUrlArray);
 
-  const data = [
-    {
-      title: "タイトル1",
-      id: "vEwFIwW3mg0",
-      comments: [
-        {
-          title: "ここ",
-          start: 10,
-          end: 15,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 100,
-          end: 102,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 205,
-          end: 210,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 210,
-          end: 215,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 220,
-          end: 222,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 240,
-          end: 242,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 1000,
-          end: 1004,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 2000,
-          end: 2003,
-          comment: "こうした方がいいと思う",
-        },
-      ],
-    },
-    {
-      title: "タイトル2",
-      id: "oXd0e-TQkII",
-      comments: [
-        {
-          title: "ここ",
-          start: 10,
-          end: 15,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 100,
-          end: 102,
-          comment: "こうした方がいいと思う",
-        },
-      ],
-    },
-    {
-      title: "タイトル3",
-      id: "O3mS6ft7ylE",
-      comments: [
-        {
-          title: "ここ",
-          start: 10,
-          end: 15,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 100,
-          end: 102,
-          comment: "こうした方がいいと思う",
-        },
-      ],
-    },
-    {
-      title: "タイトル4",
-      id: "PB-Ac9IcGcI",
-      comments: [
-        {
-          title: "ここ",
-          start: 10,
-          end: 15,
-          comment: "こうした方がいいと思う",
-        },
-        {
-          title: "ここ",
-          start: 100,
-          end: 102,
-          comment: "こうした方がいいと思う",
-        },
-      ],
-    },
-  ];
+  // const data = [
+  //   {
+  //     title: "タイトル1",
+  //     id: "vEwFIwW3mg0",
+  //     comments: [
+  //       {
+  //         title: "ここ",
+  //         start: 10,
+  //         end: 15,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 100,
+  //         end: 102,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 205,
+  //         end: 210,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 210,
+  //         end: 215,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 220,
+  //         end: 222,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 240,
+  //         end: 242,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 1000,
+  //         end: 1004,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 2000,
+  //         end: 2003,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "タイトル2",
+  //     id: "oXd0e-TQkII",
+  //     comments: [
+  //       {
+  //         title: "ここ",
+  //         start: 10,
+  //         end: 15,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 100,
+  //         end: 102,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "タイトル3",
+  //     id: "O3mS6ft7ylE",
+  //     comments: [
+  //       {
+  //         title: "ここ",
+  //         start: 10,
+  //         end: 15,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 100,
+  //         end: 102,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "タイトル4",
+  //     id: "PB-Ac9IcGcI",
+  //     comments: [
+  //       {
+  //         title: "ここ",
+  //         start: 10,
+  //         end: 15,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //       {
+  //         title: "ここ",
+  //         start: 100,
+  //         end: 102,
+  //         comment: "こうした方がいいと思う",
+  //       },
+  //     ],
+  //   },
+  // ];
 
   return (
     <div>
@@ -189,7 +197,7 @@ const Home: NextPage = () => {
           className="border p-2"
         />
         <div onClick={handleClick}>ボタン</div>
-        <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
+        {/* <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
           {data.map((data) => {
             return (
               <Card
@@ -200,7 +208,7 @@ const Home: NextPage = () => {
               />
             );
           })}
-        </ul>
+        </ul> */}
         <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
           {youtubeUrlArray.map((data) => {
             return (
@@ -214,6 +222,7 @@ const Home: NextPage = () => {
                     query: {
                       url: data.url,
                       id: data.youtubeId,
+                      detail: JSON.stringify(data.detail),
                     },
                   }}
                 >
