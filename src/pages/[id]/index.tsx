@@ -11,7 +11,9 @@ const IndividualPage = () => {
   const id = router.query.id as string;
   const { detail: serializedDetail } = router.query;
   const detail =
-    typeof serializedDetail === "string" ? JSON.parse(serializedDetail) : [];
+    typeof serializedDetail === "string" && serializedDetail.trim() !== ""
+      ? JSON.parse(serializedDetail)
+      : [];
 
   // const { comments: serializedComments } = router.query;
   // const comments =
