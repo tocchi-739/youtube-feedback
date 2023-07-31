@@ -208,13 +208,15 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <InputArea
-          type="url"
-          name="youtubeUrl"
-          handleChange={handleChange}
-          value={youtubeUrl}
-        ></InputArea>
-        <Button handleClick={handleClick} buttonText="ボタン"></Button>
+        <div>
+          <InputArea
+            type="url"
+            name="youtubeUrl"
+            handleChange={handleChange}
+            value={youtubeUrl}
+          ></InputArea>
+          <Button handleClick={handleClick} buttonText="ボタン"></Button>
+        </div>
         {/* <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
           {data.map((data) => {
             return (
@@ -227,7 +229,7 @@ const Home: NextPage = () => {
             );
           })}
         </ul> */}
-        <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
+        <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12 mt-4">
           {youtubeUrlArray.map((data) => {
             return (
               <li
