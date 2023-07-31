@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Header } from "../../components/Header";
 import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
+import { Button } from "../../components/Button";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -57,6 +58,12 @@ const IndividualPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // コメント投稿関係
+
+  const handleClickSubmit = async () => {
+    console.log("クリックされました");
+  };
+
   return (
     <>
       <Head>
@@ -65,7 +72,7 @@ const IndividualPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <div className="w-11/12 md:w-6/12 lg:w-11/12 lg:flex">
+        <div className="w-11/12 md:w-6/12 lg:w-11/12 lg:flex lg:flex-wrap">
           <div className="lg:w-[70%]">
             <YouTube
               className="aspect-video"
@@ -111,6 +118,35 @@ const IndividualPage = () => {
               )
             )}
           </ul>
+          <div className="flex flex-col mt-4 w-full">
+            <div>
+              <input
+                type="text"
+                // onChange={handleChange}
+                value={start}
+                placeholder="開始時間"
+                className="border p-2"
+              />
+              <input
+                type="text"
+                // onChange={handleChange}
+                value={end}
+                placeholder="終了時間"
+                className="border p-2"
+              />
+
+              <Button
+                handleClick={handleClickSubmit}
+                buttonText="ボタン"
+              ></Button>
+            </div>
+            <textarea
+              // onChange={handleChange}
+              value={end}
+              placeholder="コメント"
+              className="border p-2 w-full"
+            />
+          </div>
         </div>
       </main>
       <Toaster />

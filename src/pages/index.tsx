@@ -16,6 +16,7 @@ import { app } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Link from "next/link";
+import { Button } from "../components/Button";
 
 const db = getFirestore(app);
 const Home: NextPage = () => {
@@ -212,7 +213,7 @@ const Home: NextPage = () => {
           value={youtubeUrl}
           className="border p-2"
         />
-        <div onClick={handleClick}>ボタン</div>
+        <Button handleClick={handleClick} buttonText="ボタン"></Button>
         {/* <ul className="grid lg:grid-cols-3 gap-4 w-11/12 md:w-9/12">
           {data.map((data) => {
             return (
