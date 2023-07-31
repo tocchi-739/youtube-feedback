@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         toast.error("error");
       }
     } else {
-      toast("削除を中止しました");
+      await toast("削除を中止しました");
     }
   };
   interface youtubeUrl {
