@@ -6,6 +6,7 @@ import { Header } from "../../components/Header";
 import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
 import { Button } from "../../components/Button";
+import { InputArea } from "../../components/InputArea";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -60,8 +61,15 @@ const IndividualPage = () => {
 
   // コメント投稿関係
 
+  const [submitData, setSubmitData] = useState({ start: "", end: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSubmitData((prevData) => ({ ...prevData, [name]: value }));
+  };
   const handleClickSubmit = async () => {
-    console.log("クリックされました");
+    console.log(submitData.start + ":" + submitData.end);
+    setSubmitData({ start: "", end: "" });
   };
 
   return (
@@ -120,20 +128,18 @@ const IndividualPage = () => {
           </ul>
           <div className="flex flex-col mt-4 w-full">
             <div>
-              <input
+              <InputArea
+                name="start"
                 type="text"
-                // onChange={handleChange}
-                value={start}
-                placeholder="開始時間"
-                className="border p-2"
-              />
-              <input
+                handleChange={handleChange}
+                value={submitData.start}
+              ></InputArea>
+              <InputArea
+                name="end"
                 type="text"
-                // onChange={handleChange}
-                value={end}
-                placeholder="終了時間"
-                className="border p-2"
-              />
+                handleChange={handleChange}
+                value={submitData.end}
+              ></InputArea>
 
               <Button
                 handleClick={handleClickSubmit}
