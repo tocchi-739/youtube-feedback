@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { Header } from "../../components/Header";
 import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
+import { Button } from "../../components/Button";
+import { InputArea } from "../../components/InputArea";
 
 const IndividualPage = () => {
   const router = useRouter();
@@ -57,6 +59,19 @@ const IndividualPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // コメント投稿関係
+
+  const [submitData, setSubmitData] = useState({ start: "", end: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSubmitData((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const handleClickSubmit = async () => {
+    console.log(submitData.start + ":" + submitData.end);
+    setSubmitData({ start: "", end: "" });
+  };
+
   return (
     <>
       <Head>
@@ -65,7 +80,7 @@ const IndividualPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <div className="w-11/12 md:w-6/12 lg:w-11/12 lg:flex">
+        <div className="w-11/12 md:w-6/12 lg:w-11/12 lg:flex lg:flex-wrap">
           <div className="lg:w-[70%]">
             <YouTube
               className="aspect-video"
@@ -111,6 +126,33 @@ const IndividualPage = () => {
               )
             )}
           </ul>
+          <div className="flex flex-col mt-4 w-full">
+            <div>
+              <InputArea
+                name="start"
+                type="text"
+                handleChange={handleChange}
+                value={submitData.start}
+              ></InputArea>
+              <InputArea
+                name="end"
+                type="text"
+                handleChange={handleChange}
+                value={submitData.end}
+              ></InputArea>
+
+              <Button
+                handleClick={handleClickSubmit}
+                buttonText="ボタン"
+              ></Button>
+            </div>
+            <textarea
+              // onChange={handleChange}
+              value={end}
+              placeholder="コメント"
+              className="border p-2 w-full"
+            />
+          </div>
         </div>
       </main>
       <Toaster />
