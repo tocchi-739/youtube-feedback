@@ -231,7 +231,7 @@ const Home: NextPage = () => {
           {youtubeUrlArray.map((data) => {
             return (
               <li
-                className="shadow p-4 rounded-sm bg-gray-100 hover:-translate-y-2 duration-300"
+                className="shadow p-4 rounded-sm bg-gray-100 hover:bg-gray-200 duration-300"
                 key={data.id}
               >
                 <Link
