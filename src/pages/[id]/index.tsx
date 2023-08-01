@@ -7,10 +7,14 @@ import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
 import { Button } from "../../components/Button";
 import { InputArea } from "../../components/InputArea";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { app } from "../../firebase/firebase";
 
+const db = getFirestore(app);
 const IndividualPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
+  const dataId = router.query.dataId as string;
   const { detail: serializedDetail } = router.query;
   const detail =
     typeof serializedDetail === "string" && serializedDetail.trim() !== ""
@@ -68,8 +72,24 @@ const IndividualPage = () => {
     setSubmitData((prevData) => ({ ...prevData, [name]: value }));
   };
   const handleClickSubmit = async () => {
-    console.log(submitData.start + ":" + submitData.end);
-    setSubmitData({ start: "", end: "" });
+    console.log(dataId, submitData);
+
+    try {
+      const col = collection(db, "youtube-feedback", dataId, "commentsData");
+      const commentData = {
+        start: submitData.start,
+        end: submitData.end,
+        comment: "",
+        date: "",
+      };
+      await addDoc(col, commentData);
+      toast.success("success!");
+      setSubmitData({ start: "", end: "" });
+    } catch (error) {
+      console.log(error);
+
+      toast.error("error");
+    }
   };
 
   return (
