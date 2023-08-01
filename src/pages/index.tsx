@@ -242,6 +242,7 @@ const Home: NextPage = () => {
                     query: {
                       url: data.url,
                       id: data.youtubeId,
+                      dataId: data.id,
                       detail: JSON.stringify(data.detail),
                     },
                   }}
