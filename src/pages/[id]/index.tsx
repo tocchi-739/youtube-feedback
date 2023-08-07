@@ -7,7 +7,14 @@ import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
 import { Button } from "../../components/Button";
 import { InputArea } from "../../components/InputArea";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  getFirestore,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
 import { app } from "../../firebase/firebase";
 
 const db = getFirestore(app);
@@ -71,26 +78,63 @@ const IndividualPage = () => {
     const { name, value } = e.target;
     setSubmitData((prevData) => ({ ...prevData, [name]: value }));
   };
+  const [submitComment, setSubmitComment] = useState("");
+
+  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setSubmitComment(() => e.target.value);
+    console.log(submitComment);
+  };
   const handleClickSubmit = async () => {
-    console.log(dataId, submitData);
+    console.log(dataId, submitData, submitComment);
 
     try {
       const col = collection(db, "youtube-feedback", dataId, "commentsData");
       const commentData = {
         start: submitData.start,
         end: submitData.end,
-        comment: "",
-        date: "",
+        comment: submitComment,
+        date: serverTimestamp(),
       };
       await addDoc(col, commentData);
       toast.success("success!");
       setSubmitData({ start: "", end: "" });
+      setSubmitComment("");
     } catch (error) {
       console.log(error);
 
       toast.error("error");
     }
   };
+  interface commentArray {
+    id: string;
+    start: string;
+    end: string;
+    comment: string;
+    date: Timestamp;
+  }
+  const [commentArray, setCommentArray] = useState<commentArray[]>([]);
+  useEffect(() => {
+    // Firestoreのデータ監視を設定
+    const unsubscribe = onSnapshot(
+      collection(db, "youtube-feedback", dataId, "commentsData"),
+      (snapshot) => {
+        const dataList = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            start: data.start,
+            end: data.end,
+            comment: data.comment,
+            date: data.date,
+          };
+        });
+        setCommentArray(dataList);
+      }
+    );
+
+    // コンポーネントのアンマウント時にデータ監視を停止
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
@@ -120,31 +164,23 @@ const IndividualPage = () => {
           </div>
 
           <ul className="flex flex-col w-full gap-4 mt-4 overflow-y-scroll h-[40vh] lg:w-[30%] lg:h-[70vh] lg:mt-0">
-            {detail.map(
-              (
-                data: {
-                  start: number;
-                  end: number;
-                  title: string;
-                  comment: string;
-                },
-                index: number
-              ) => (
-                <li
-                  key={index}
-                  className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
+            {commentArray.map((data: commentArray, index: number) => (
+              <li
+                key={index}
+                className="bg-slate-100 mx-auto w-full p-2 shadow hover:bg-slate-50 duration-200
               "
-                  onClick={() => handleClick(data.start, data.end)}
-                >
-                  <p>
-                    開始：{data.start} 終了：{data.end}
-                  </p>
-                  <p>{data.title}</p>
-                  <p>コメント</p>
-                  <p>{data.comment}</p>
-                </li>
-              )
-            )}
+                onClick={() =>
+                  handleClick(Number(data.start), Number(data.end))
+                }
+              >
+                <p>
+                  開始：{data.start} 終了：{data.end}
+                </p>
+                {/* <p>{data.date}</p> */}
+                <p>コメント</p>
+                <p>{data.comment}</p>
+              </li>
+            ))}
           </ul>
           <div className="flex flex-col mt-4 w-full">
             <div>
@@ -167,8 +203,8 @@ const IndividualPage = () => {
               ></Button>
             </div>
             <textarea
-              // onChange={handleChange}
-              value={end}
+              onChange={handleChangeComment}
+              value={submitComment}
               placeholder="コメント"
               className="border p-2 w-full"
             />
